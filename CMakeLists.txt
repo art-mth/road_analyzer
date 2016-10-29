@@ -1,5 +1,7 @@
+if(USE_CONAN)
 project(RoadAnalyzer)
 cmake_minimum_required(VERSION 2.8.12)
+endif(USE_CONAN)
 
 include(${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
@@ -21,4 +23,8 @@ endif()
 include_directories("include")
 
 add_library(road_analyzer MODULE ${SOURCES} ${HEADERS})
+if(USE_CONAN)
 target_link_libraries(road_analyzer ${CONAN_LIBS})
+else()
+target_link_libraries(road_analyzer lms_math)
+endif(USE_CONAN)
