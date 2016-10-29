@@ -1,10 +1,9 @@
 if(USE_CONAN)
 project(RoadAnalyzer)
 cmake_minimum_required(VERSION 2.8.12)
-endif(USE_CONAN)
-
 include(${PROJECT_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
+endif(USE_CONAN)
 
 set(SOURCES
     "src/road_analyzer.cpp"
