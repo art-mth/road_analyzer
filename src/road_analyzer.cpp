@@ -32,6 +32,7 @@ bool RoadAnalyzer::cycle() {
             }
         }
     }
+    //TODO create badness for cells around cells with a badness because of a obstacle
     return true;
 }
 
