@@ -4,6 +4,7 @@
 #include <lms/module.h>
 #include <lms/math/polyline.h>
 #include <street_environment/obstacle.h>
+#include <street_environment/road.h>
 
 /**
  * @brief LMS module road_analyzer
@@ -13,6 +14,8 @@ class RoadAnalyzer : public lms::Module {
 
     lms::ReadDataChannel<lms::math::polyLine2f> line;
     lms::ReadDataChannel<street_environment::EnvironmentObjects> obstacles;
+
+    lms::WriteDataChannel<street_environment::RoadMatrix> roadMatrix;
 
 public:
     bool initialize() override;
