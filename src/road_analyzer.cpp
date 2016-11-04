@@ -12,7 +12,7 @@ bool RoadAnalyzer::deinitialize() {
 }
 
 bool RoadAnalyzer::cycle() {
-    roadMatrix->aroundRoad(*line,config().get<int>("widthSteps",2),config().get<float>("stepWidth",0.2),config().get<float>("stepLength",0.4));
+    roadMatrix->aroundLine(*line,config().get<int>("widthSteps",2),config().get<float>("stepWidth",0.2),config().get<float>("stepLength",0.4));
     float deltaBadness =config().get<float>("deltaBadness",1);
     for(street_environment::EnvironmentObjectPtr ptr:obstacles->objects){
         if(ptr->getType() == street_environment::Obstacle::TYPE){
