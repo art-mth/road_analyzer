@@ -1,5 +1,22 @@
 #include "road_analyzer.h"
 
+namespace {
+    const float kMaxBadness = 10;
+}
+
+bool RoadAnalyzer::markBadPosition(lms::math::vertex2f v) {
+    for (int x = 0; x < roadMatrix->length(); x++) {
+        for (int y = 0; y < roadMatrix->width(); y++) {
+            street_environment::RoadMatrixCell &cell = roadMatrix->cell(x, y);
+            if (cell.contains(v)) {
+                cell.badness(kMaxBadness);
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
 bool RoadAnalyzer::initialize() {
     line = readChannel<lms::math::polyLine2f>("LINE");
     obstacles =
@@ -21,7 +38,7 @@ bool RoadAnalyzer::cycle() {
             std::shared_ptr<street_environment::Obstacle> obst =
                 std::dynamic_pointer_cast<street_environment::Obstacle>(ptr);
             for (const lms::math::vertex2f &v : obst->points()) {
-                if (roadMatrix->markBadPosition(v)) {}
+                if (markBadPosition(v)) {}
             }
         }
     }

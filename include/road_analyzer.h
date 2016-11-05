@@ -3,6 +3,7 @@
 
 #include <lms/module.h>
 #include <lms/math/polyline.h>
+#include <lms/math/vertex.h>
 #include <street_environment/obstacle.h>
 #include <street_environment/road.h>
 
@@ -14,6 +15,7 @@ class RoadAnalyzer : public lms::Module {
     lms::ReadDataChannel<street_environment::EnvironmentObjects> obstacles;
     lms::WriteDataChannel<street_environment::RoadMatrix> roadMatrix;
 
+    bool markBadPosition(lms::math::vertex2f v);
   public:
     bool initialize() override;
     bool deinitialize() override;
