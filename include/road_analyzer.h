@@ -16,6 +16,9 @@ class RoadAnalyzer : public lms::Module {
     lms::WriteDataChannel<street_environment::RoadMatrix> roadMatrix;
 
     bool markBadPosition(lms::math::vertex2f v);
+    bool markAdjacentCellsBad(int x, int y);
+    bool markSidelineBad();
+    bool adjustBadnessAroundOptimalLane();
   public:
     bool initialize() override;
     bool deinitialize() override;
