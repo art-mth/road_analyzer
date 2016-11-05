@@ -10,19 +10,15 @@
  * @brief LMS module road_analyzer
  **/
 class RoadAnalyzer : public lms::Module {
-
-
     lms::ReadDataChannel<lms::math::polyLine2f> line;
     lms::ReadDataChannel<street_environment::EnvironmentObjects> obstacles;
-
     lms::WriteDataChannel<street_environment::RoadMatrix> roadMatrix;
 
-public:
+  public:
     bool initialize() override;
     bool deinitialize() override;
     bool cycle() override;
     void configsChanged() override;
-
 };
 
 #endif // ROAD_ANALYZER_H

@@ -16,18 +16,15 @@ bool RoadAnalyzer::cycle() {
     roadMatrix->aroundLine(*line, config().get<int>("cellsPerLane", 2),
                            config().get<float>("cellWidth", 0.2),
                            config().get<float>("cellLength", 0.4));
-    float deltaBadness = config().get<float>("deltaBadness", 1);
     for (street_environment::EnvironmentObjectPtr ptr : obstacles->objects) {
         if (ptr->getType() == street_environment::Obstacle::TYPE) {
             std::shared_ptr<street_environment::Obstacle> obst =
                 std::dynamic_pointer_cast<street_environment::Obstacle>(ptr);
             for (const lms::math::vertex2f &v : obst->points()) {
-                int x, y;
-                if (roadMatrix->checkBadPosition(v, x, y, deltaBadness)) {}
+                if (roadMatrix->markBadPosition(v)) {}
             }
         }
     }
-    //TODO create badness for cells around cells with a badness because of a obstacle
     return true;
 }
 
