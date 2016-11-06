@@ -11,73 +11,12 @@ bool RoadAnalyzer::markBadPosition(lms::math::vertex2f v) {
         for (int y = 0; y < roadMatrix->width(); y++) {
             street_environment::RoadMatrixCell &cell = roadMatrix->cell(x, y);
             if (cell.contains(v)) {
-                cell.badness(kMaxBadness);
-                markAdjacentCellsBad(x, y);
+                cell.hasObstacle = true;
                 return true;
             }
         }
     }
     return false;
-}
-
-bool RoadAnalyzer::markAdjacentCellsBad(int x, int y) {
-    float cellWidth = config().get<float>("laneWidth", 0.4) /
-                      config().get<int>("cellsPerLane", 8);
-    float cellLength = cellWidth;
-
-    int xCellsToInfluence =
-        config().get<int>("xObstacleInfluence", 0.5) / cellLength;
-    float xBadnessStep = (kMaxInfluence - kMinInfluence) / xCellsToInfluence;
-    for (int i = 1; i <= xCellsToInfluence; i++) {
-        float badness =
-            kMinInfluence + xBadnessStep * (xCellsToInfluence - i + 1);
-        if (x + i < roadMatrix->length()) {
-            street_environment::RoadMatrixCell &cell =
-                roadMatrix->cell(x + i, y);
-            if (badness > cell.badness()) {
-                cell.badness(badness);
-            }
-        }
-        if (x - i >= 0) {
-            street_environment::RoadMatrixCell &cell =
-                roadMatrix->cell(x - i, y);
-            if (badness > cell.badness()) {
-                cell.badness(badness);
-            }
-        }
-    }
-
-    int yCellsToInfluence = config().get<int>("yObstacleInfluence", 0.1) /
-                            cellWidth;
-    float yBadnessStep = (kMaxInfluence - kMinInfluence) / yCellsToInfluence;
-    for (int j = 1; j <= yCellsToInfluence; j++) {
-        float badness =
-            kMinInfluence + yBadnessStep * (yCellsToInfluence - j + 1);
-        if (y + j < roadMatrix->width()) {
-            street_environment::RoadMatrixCell &cell =
-                roadMatrix->cell(x, y + j);
-            if (badness > cell.badness()) {
-                cell.badness(badness);
-            }
-        }
-        if (y - j >= 0) {
-            street_environment::RoadMatrixCell &cell =
-                roadMatrix->cell(x, y - j);
-            if (badness > cell.badness()) {
-                cell.badness(badness);
-            }
-        }
-    }
-
-    return true;
-}
-
-bool RoadAnalyzer::markSidelineBad() {
-    return true;
-}
-
-bool RoadAnalyzer::adjustBadnessAroundOptimalLane() {
-    return true;
 }
 
 bool RoadAnalyzer::initialize() {
