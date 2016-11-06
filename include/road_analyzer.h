@@ -5,7 +5,7 @@
 #include <lms/math/polyline.h>
 #include <lms/math/vertex.h>
 #include <street_environment/obstacle.h>
-#include <street_environment/road.h>
+#include <street_environment/road_matrix/road_matrix.h>
 
 /**
  * @brief LMS module road_analyzer
