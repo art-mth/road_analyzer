@@ -39,7 +39,10 @@ bool RoadAnalyzer::cycle() {
             std::shared_ptr<street_environment::Obstacle> obst =
                 std::dynamic_pointer_cast<street_environment::Obstacle>(ptr);
             for (const lms::math::vertex2f &v : obst->points()) {
+                //TODO Das macht so wenig Sinn, ein falsches Messergebnis ergibt ein nicht-befahrbares Element. Deswegen gab es die badness
+                //TODO Wenn du etwas an meinem Code änderst solltest du das davor absprechen, es hatte einen Sinn
                 markBadPosition(v);
+
             }
         }
     }
