@@ -25,7 +25,7 @@ include_directories("include")
 add_library(road_analyzer MODULE ${SOURCES} ${HEADERS})
 
 if(USE_CONAN)
-target_link_libraries(road_analyzer ${CONAN_LIBS})
+target_link_libraries(road_analyzer ${CONAN_LIBS} street_environment)
 else()
 target_link_libraries(road_analyzer PRIVATE lmscore lms_math street_environment)
 endif(USE_CONAN)
