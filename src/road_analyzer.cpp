@@ -44,5 +44,3 @@ bool RoadAnalyzer::cycle() {
     }
     return true;
 }
-
-void RoadAnalyzer::configsChanged() {}

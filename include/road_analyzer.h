@@ -20,7 +20,6 @@ class RoadAnalyzer : public lms::Module {
     bool initialize() override;
     bool deinitialize() override;
     bool cycle() override;
-    void configsChanged() override;
 };
 
 #endif // ROAD_ANALYZER_H
