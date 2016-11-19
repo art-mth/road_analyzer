@@ -9,6 +9,9 @@
 
 /**
  * @brief LMS module road_analyzer
+ * Given the center line and a stream of obstacles creates a matrix
+ * representation of the road. The module assumes that the given points
+ * are accurate.
  **/
 class RoadAnalyzer : public lms::Module {
    public:
@@ -17,7 +20,7 @@ class RoadAnalyzer : public lms::Module {
     bool cycle() override;
 
    private:
-    lms::ReadDataChannel<lms::math::polyLine2f> line;
+    lms::ReadDataChannel<lms::math::polyLine2f> centerLine;
     lms::ReadDataChannel<street_environment::EnvironmentObjects> obstacles;
     lms::WriteDataChannel<street_environment::RoadMatrix> roadMatrix;
 };

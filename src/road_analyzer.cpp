@@ -1,7 +1,7 @@
 #include "road_analyzer.h"
 
 bool RoadAnalyzer::initialize() {
-    line = readChannel<lms::math::polyLine2f>("LINE");
+    centerLine = readChannel<lms::math::polyLine2f>("CENTER_LINE");
     obstacles =
         readChannel<street_environment::EnvironmentObjects>("OBSTACLES");
     roadMatrix = writeChannel<street_environment::RoadMatrix>("ROADMATRIX");
@@ -11,8 +11,8 @@ bool RoadAnalyzer::initialize() {
 bool RoadAnalyzer::deinitialize() { return true; }
 
 bool RoadAnalyzer::cycle() {
-    roadMatrix->aroundLine(*line, config().get<float>("laneWidth", 0.4),
-                           config().get<int>("cellsPerLane", 8),
+    roadMatrix->aroundLine(*centerLine, config().get<float>("laneWidth", 0.4),
+                           config().get<int>("cellsPerLane", 4),
                            config().get<float>("cellLength", 0.1));
     roadMatrix->markEnvironmentObjects(obstacles->objects);
 
