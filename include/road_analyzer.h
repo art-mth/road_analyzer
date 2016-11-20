@@ -4,7 +4,7 @@
 #include <lms/math/polyline.h>
 #include <lms/math/vertex.h>
 #include <lms/module.h>
-#include <street_environment/road_matrix/road_matrix.h>
+#include <street_environment/roadmatrix.h>
 #include <street_environment/street_environment.h>
 
 /**
