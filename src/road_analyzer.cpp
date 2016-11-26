@@ -5,6 +5,8 @@ bool RoadAnalyzer::initialize() {
     newObstacles = readChannel<bool>("NEW_OBSTACLES");
     obstacles = readChannel<street_environment::BoundingBoxVector>("OBSTACLES");
     roadMatrix = writeChannel<street_environment::RoadMatrix>("ROADMATRIX");
+
+    impl = std::unique_ptr<RoadAnalyzerImpl>(new RoadAnalyzerImpl);
     return true;
 }
 
@@ -15,5 +17,10 @@ bool RoadAnalyzer::cycle() {
                            config().get<int>("cellsPerLane", 4),
                            config().get<float>("cellLength", 0.1));
 
+    if (*newObstacles) {
+        impl->markNewObstacles(*obstacles, *roadMatrix);
+    } else {
+        impl->moveExistingObstacles(*roadMatrix);
+    }
     return true;
 }

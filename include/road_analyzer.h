@@ -1,12 +1,16 @@
 #ifndef ROAD_ANALYZER_H
 #define ROAD_ANALYZER_H
 
+#include <memory>
+
 #include <lms/math/polyline.h>
 #include <lms/math/vertex.h>
 #include <lms/module.h>
 #include <street_environment/bounding_box.h>
 #include <street_environment/roadmatrix.h>
 #include <street_environment/street_environment.h>
+
+#include "road_analyzer_impl.h"
 
 /**
  * @brief LMS module road_analyzer
@@ -25,6 +29,8 @@ class RoadAnalyzer : public lms::Module {
     lms::ReadDataChannel<bool> newObstacles;
     lms::ReadDataChannel<street_environment::BoundingBoxVector> obstacles;
     lms::WriteDataChannel<street_environment::RoadMatrix> roadMatrix;
+
+    std::unique_ptr<RoadAnalyzerImpl> impl;
 };
 
 #endif  // ROAD_ANALYZER_H
