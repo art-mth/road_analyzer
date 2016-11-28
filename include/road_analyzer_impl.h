@@ -8,10 +8,10 @@
 class RoadAnalyzerImpl {
    public:
     bool markNewObstacles(
-        const street_environment::BoundingBoxVector& obstacles,
+        const street_environment::BoundingBox2fVector& obstacles,
         street_environment::RoadMatrix& roadMatrix);
 
-    bool markObstacleCells(const street_environment::BoundingBox& obstacle,
+    bool markObstacleCells(const street_environment::BoundingBox2f& obstacle,
                            street_environment::RoadMatrix& roadMatrix);
 
     const street_environment::RoadMatrixCell* findCell(

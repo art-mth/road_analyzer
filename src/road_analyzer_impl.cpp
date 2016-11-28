@@ -1,7 +1,7 @@
 #include "road_analyzer_impl.h"
 
 bool RoadAnalyzerImpl::markNewObstacles(
-    const street_environment::BoundingBoxVector& obstacles,
+    const street_environment::BoundingBox2fVector& obstacles,
     street_environment::RoadMatrix& roadMatrix) {
     m_obstacleCells.clear();
     for (const auto& obstacle : obstacles) {
@@ -13,7 +13,7 @@ bool RoadAnalyzerImpl::markNewObstacles(
 }
 
 bool RoadAnalyzerImpl::markObstacleCells(
-    const street_environment::BoundingBox& obstacle,
+    const street_environment::BoundingBox2f& obstacle,
     street_environment::RoadMatrix& roadMatrix) {
     const lms::math::vertex2f& startVertex = obstacle.corners()[3];
     const street_environment::RoadMatrixCell* startCell =

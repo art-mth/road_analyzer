@@ -27,7 +27,7 @@ class RoadAnalyzer : public lms::Module {
    private:
     lms::ReadDataChannel<lms::math::polyLine2f> centerLine;
     lms::ReadDataChannel<bool> newObstacles;
-    lms::ReadDataChannel<street_environment::BoundingBoxVector> obstacles;
+    lms::ReadDataChannel<street_environment::BoundingBox2fVector> obstacles;
     lms::WriteDataChannel<street_environment::RoadMatrix> roadMatrix;
 
     std::unique_ptr<RoadAnalyzerImpl> impl;
