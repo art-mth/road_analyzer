@@ -15,40 +15,21 @@ bool RoadAnalyzerImpl::markNewObstacles(
 bool RoadAnalyzerImpl::markObstacleCells(
     const street_environment::BoundingBox2f& obstacle,
     street_environment::RoadMatrix& roadMatrix) {
-    const lms::math::vertex2f& startVertex = obstacle.corners()[3];
-    const street_environment::RoadMatrixCell* startCell =
-        findCell(startVertex, roadMatrix);
-    if (startCell == nullptr) {
+    street_environment::RoadMatrixCell startCell;
+    if (!roadMatrix.findCell(obstacle.corners()[3], &startCell)) {
         return false;
     }
-    const lms::math::vertex2f& endVertex = obstacle.corners()[1];
-    const street_environment::RoadMatrixCell* endCell =
-        findCell(endVertex, roadMatrix);
-    if (endCell == nullptr) {
+    street_environment::RoadMatrixCell endCell;
+    if (!roadMatrix.findCell(obstacle.corners()[1], &endCell)) {
         return false;
     }
-    for (int x = startCell->x; x <= endCell->x; x++) {
-        for (int y = startCell->y; y <= endCell->y; y++) {
+    for (int x = startCell.x; x <= endCell.x; x++) {
+        for (int y = startCell.y; y <= endCell.y; y++) {
             roadMatrix.cell(x, y).hasObstacle = true;
             m_obstacleCells.push_back(roadMatrix.cell(x, y));
         }
     }
     return true;
-}
-
-const street_environment::RoadMatrixCell* RoadAnalyzerImpl::findCell(
-    const lms::math::vertex2f& v,
-    const street_environment::RoadMatrix& roadMatrix) {
-    for (int x = 0; x < roadMatrix.length(); x++) {
-        for (int y = 0; y < roadMatrix.width(); y++) {
-            const street_environment::RoadMatrixCell& rmc =
-                roadMatrix.cell(x, y);
-            if (rmc.contains(v)) {
-                return &rmc;
-            }
-        }
-    }
-    return nullptr;
 }
 
 void RoadAnalyzerImpl::moveExistingObstacles(
