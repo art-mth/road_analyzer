@@ -9,7 +9,7 @@
 
 class RoadAnalyzerImpl {
    public:
-    bool markNewObstacles(
+    void markNewObstacles(
         const street_environment::BoundingBox2fVector& obstacles,
         street_environment::RoadMatrix& roadMatrix);
 

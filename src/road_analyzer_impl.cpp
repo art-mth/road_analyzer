@@ -1,15 +1,12 @@
 #include "road_analyzer_impl.h"
 
-bool RoadAnalyzerImpl::markNewObstacles(
+void RoadAnalyzerImpl::markNewObstacles(
     const street_environment::BoundingBox2fVector& obstacles,
     street_environment::RoadMatrix& roadMatrix) {
     m_obstacleCells.clear();
     for (const auto& obstacle : obstacles) {
-        if(!markObstacleCells(obstacle, roadMatrix)) {
-            return false;
-        }
+        markObstacleCells(obstacle, roadMatrix);
     }
-    return true;
 }
 
 bool RoadAnalyzerImpl::markObstacleCells(
@@ -34,7 +31,7 @@ bool RoadAnalyzerImpl::markObstacleCells(
 
 void RoadAnalyzerImpl::moveExistingObstacles(
     street_environment::RoadMatrix& roadMatrix) {
-    for(const auto& cell: m_obstacleCells) {
+    for (const auto& cell : m_obstacleCells) {
         roadMatrix.cell(cell.x, cell.y).hasObstacle = true;
     }
 }
