@@ -16,6 +16,7 @@ class RoadAnalyzerImpl {
     bool markObstacleCells(const street_environment::BoundingBox2f& obstacle,
                            street_environment::RoadMatrix& roadMatrix);
 
+    // TODO(arthumathies): Implement obstacle moves.
     void moveExistingObstacles(street_environment::RoadMatrix& roadMatrix);
 
     std::vector<street_environment::RoadMatrixCell> m_obstacleCells;
