@@ -8,11 +8,13 @@ endif(USE_CONAN)
 
 set(SOURCES
     "src/road_analyzer.cpp"
+    "src/road_analyzer_impl.cpp"
     "src/interface.cpp"
 )
 
 set(HEADERS
     "include/road_analyzer.h"
+    "include/road_analyzer_impl.h"
 )
 
 #set compiler flags
