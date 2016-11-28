@@ -1,6 +1,8 @@
 #ifndef ROAD_ANALYZER_IMPL_H
 #define ROAD_ANALYZER_IMPL_H
 
+#include <vector>
+
 #include <lms/math/vertex.h>
 #include <street_environment/bounding_box.h>
 #include <street_environment/roadmatrix.h>
