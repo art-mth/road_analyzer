@@ -24,7 +24,6 @@ bool RoadAnalyzer::cycle() {
         lms::math::CoordinateSystem2D coord(oldPose);
         //if we found a old pose, we have to transform it
         deltaPose = coord.transformTo(poseHistory->currentPose());
-
     }else{
         logger.warn("cycle")<<"no valid pose found: "<<lastUpdate.toFloat<std::milli,double>();
     }
