@@ -6,6 +6,7 @@
 #include <lms/math/polyline.h>
 #include <lms/module.h>
 #include <street_environment/bounding_box.h>
+#include <street_environment/car.h>
 #include <street_environment/roadmatrix.h>
 
 #include "road_analyzer_impl.h"
@@ -23,8 +24,8 @@ class RoadAnalyzer : public lms::Module {
     bool cycle() override;
 
    private:
+    lms::ReadDataChannel<street_environment::Car> car;
     lms::ReadDataChannel<lms::math::polyLine2f> centerLine;
-    lms::ReadDataChannel<bool> newObstacles;
     lms::ReadDataChannel<street_environment::BoundingBox2fVector> obstacles;
     lms::WriteDataChannel<street_environment::RoadMatrix> roadMatrix;
 
