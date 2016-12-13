@@ -4,11 +4,10 @@
 #include <memory>
 
 #include <lms/math/polyline.h>
+#include <lms/math/pose.h>
 #include <lms/module.h>
 #include <street_environment/bounding_box.h>
-#include <street_environment/car.h>
 #include <street_environment/roadmatrix.h>
-#include <lms/math/pose.h>
 #include "road_analyzer_impl.h"
 
 /**
