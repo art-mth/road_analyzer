@@ -6,7 +6,7 @@
 #include <lms/math/polyline.h>
 #include <lms/math/pose.h>
 #include <lms/module.h>
-#include <street_environment/bounding_box.h>
+#include <street_environment/basic_obstacle.h>
 #include <street_environment/roadmatrix.h>
 #include "road_analyzer_impl.h"
 
@@ -30,7 +30,7 @@ class RoadAnalyzer : public lms::Module {
     /////////////////////////////// Data Channels //////////////////////////////
     lms::ReadDataChannel<lms::math::Pose2DHistory> poseHistory;
     lms::ReadDataChannel<lms::math::polyLine2f> centerLine;
-    lms::ReadDataChannel<street_environment::BoundingBox2fVector> obstacles;
+    lms::ReadDataChannel<street_environment::BasicObstacleVector> obstacles;
     lms::WriteDataChannel<street_environment::RoadMatrix> roadMatrix;
 
     std::unique_ptr<RoadAnalyzerImpl> impl;

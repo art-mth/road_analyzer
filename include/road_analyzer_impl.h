@@ -1,15 +1,15 @@
 #ifndef ROAD_ANALYZER_IMPL_H
 #define ROAD_ANALYZER_IMPL_H
 
-#include <street_environment/bounding_box.h>
+#include <street_environment/basic_obstacle.h>
 #include <street_environment/roadmatrix.h>
 
 class RoadAnalyzerImpl {
    public:
-    void markObstacles(const street_environment::BoundingBox2fVector& obstacles,
+    void markObstacles(const street_environment::BasicObstacleVector& obstacles,
                        street_environment::RoadMatrix& roadMatrix);
 
-    bool markObstacleCells(const street_environment::BoundingBox2f& obstacle,
+    bool markObstacleCells(const street_environment::BasicObstacle& obstacle,
                            street_environment::RoadMatrix& roadMatrix);
 };
 

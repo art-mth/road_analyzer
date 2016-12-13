@@ -3,7 +3,7 @@
 bool RoadAnalyzer::initialize() {
     centerLine = readChannel<lms::math::polyLine2f>("CENTER_LINE");
     obstacles =
-        readChannel<street_environment::BoundingBox2fVector>("OBSTACLES");
+        readChannel<street_environment::BasicObstacleVector>("OBSTACLES");
     poseHistory = readChannel<lms::math::Pose2DHistory>("POSE2D_HISTORY");
     roadMatrix = writeChannel<street_environment::RoadMatrix>("ROADMATRIX");
 
