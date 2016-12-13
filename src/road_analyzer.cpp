@@ -1,7 +1,7 @@
 #include "road_analyzer.h"
 
 bool RoadAnalyzer::initialize() {
-    car = readChannel<street_environment::Car>("CAR");
+    poseHistory = readChannel<lms::math::Pose2DHistory>("POSE2D_HISTORY");
     centerLine = readChannel<lms::math::polyLine2f>("CENTER_LINE");
     obstacles =
         readChannel<street_environment::BoundingBox2fVector>("OBSTACLES");
@@ -18,8 +18,19 @@ bool RoadAnalyzer::initialize() {
 bool RoadAnalyzer::deinitialize() { return true; }
 
 bool RoadAnalyzer::cycle() {
-    roadMatrix->aroundLine(*centerLine, car->localDeltaPosition(),
-                           car->deltaPhi());
+    lms::math::Pose2D oldPose,deltaPose;
+    //get old pose
+    if(poseHistory->getPose(lastUpdate.toFloat<std::milli,double>(),oldPose)){
+        lms::math::CoordinateSystem2D coord(oldPose);
+        //if we found a old pose, we have to transform it
+        deltaPose = coord.transformTo(poseHistory->currentPose());
+
+    }else{
+        logger.warn("cycle")<<"no valid pose found: "<<lastUpdate.toFloat<std::milli,double>();
+    }
+    lastUpdate = lms::Time::now();
+    roadMatrix->aroundLine(*centerLine, lms::math::vertex2f(deltaPose.x,deltaPose.y),
+                           deltaPose.phi);
 
     impl->markObstacles(*obstacles, *roadMatrix);
     return true;
