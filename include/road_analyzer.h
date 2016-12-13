@@ -12,8 +12,8 @@
 
 /**
  * @brief LMS module road_analyzer
- * Given the center line and a BoundingBox vector creates a matrix
- * representation of the road. The module assumes that the given points are
+ * Given the center line and a vector of BasicObstacle's creates a matrix
+ * representation of the road. The module assumes that the given obstacles are
  * accurate.
  **/
 class RoadAnalyzer : public lms::Module {
@@ -25,6 +25,8 @@ class RoadAnalyzer : public lms::Module {
    private:
     lms::math::Pose2D getDeltaPose();
 
+    std::unique_ptr<RoadAnalyzerImpl> impl;
+
     lms::Time lastUpdate;
 
     /////////////////////////////// Data Channels //////////////////////////////
@@ -33,7 +35,6 @@ class RoadAnalyzer : public lms::Module {
     lms::ReadDataChannel<street_environment::BasicObstacleVector> obstacles;
     lms::WriteDataChannel<street_environment::RoadMatrix> roadMatrix;
 
-    std::unique_ptr<RoadAnalyzerImpl> impl;
 };
 
 #endif  // ROAD_ANALYZER_H
