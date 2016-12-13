@@ -23,7 +23,11 @@ class RoadAnalyzer : public lms::Module {
     bool cycle() override;
 
    private:
+    lms::math::Pose2D getDeltaPose();
+
     lms::Time lastUpdate;
+
+    /////////////////////////////// Data Channels //////////////////////////////
     lms::ReadDataChannel<lms::math::Pose2DHistory> poseHistory;
     lms::ReadDataChannel<lms::math::polyLine2f> centerLine;
     lms::ReadDataChannel<street_environment::BoundingBox2fVector> obstacles;

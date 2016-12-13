@@ -18,6 +18,16 @@ bool RoadAnalyzer::initialize() {
 bool RoadAnalyzer::deinitialize() { return true; }
 
 bool RoadAnalyzer::cycle() {
+    lms::math::Pose2D deltaPose(getDeltaPose());
+    roadMatrix->aroundLine(*centerLine,
+                           lms::math::vertex2f(deltaPose.x, deltaPose.y),
+                           deltaPose.phi);
+
+    impl->markObstacles(*obstacles, *roadMatrix);
+    return true;
+}
+
+lms::math::Pose2D RoadAnalyzer::getDeltaPose() {
     lms::math::Pose2D oldPose, deltaPose;
     if (poseHistory->getPose(lastUpdate.toFloat<std::milli, double>(),
                              oldPose)) {
@@ -28,11 +38,5 @@ bool RoadAnalyzer::cycle() {
                              << lastUpdate.toFloat<std::milli, double>();
     }
     lastUpdate = lms::Time::now();
-
-    roadMatrix->aroundLine(*centerLine,
-                           lms::math::vertex2f(deltaPose.x, deltaPose.y),
-                           deltaPose.phi);
-
-    impl->markObstacles(*obstacles, *roadMatrix);
-    return true;
+    return deltaPose;
 }
